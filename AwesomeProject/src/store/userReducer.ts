@@ -1,31 +1,31 @@
-const initialState = {
-  isLoggedIn: false,
-  userName: ''
+import { LOGIN, LOGOUT, CHANGE_NAME, GET_DUCKS } from './actionTypes';
+import { UserActionTypes } from './userActions';
+
+export interface UserState { // Exporting the UserState type to use in the root reducer
+    isLoggedIn: boolean;
+    userName: string;
+    ducks: string;
+}
+
+const initialState: UserState = {
+    isLoggedIn: false,
+    userName: '',
+    ducks: '',
 };
 
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
-const CHANGE_NAME = 'CHANGE_NAME';
-
-type ActionType = {
-  type: string;
-  payload: any;
-};
-
-const userReducer = (state = initialState, { type, payload }: ActionType) => {
-  switch (type) {
-      case LOGIN:
-          return { ...state, isLoggedIn: payload };
-
-      case LOGOUT:
-          return { ...state, isLoggedIn: payload };
-
-      case CHANGE_NAME:
-          return { ...state, userName: payload };
-
-      default:
-          return state;
-  }
+const userReducer = (state = initialState, action: UserActionTypes): UserState => {
+    switch (action.type) {
+        case LOGIN:
+            return { ...state, isLoggedIn: action.payload };
+        case LOGOUT:
+            return { ...state, isLoggedIn: action.payload };
+        case CHANGE_NAME:
+            return { ...state, userName: action.payload };
+        case GET_DUCKS:
+            return { ...state, ducks: action.payload };
+        default:
+            return state;
+    }
 };
 
 export default userReducer;

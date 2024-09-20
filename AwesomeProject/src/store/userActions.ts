@@ -1,26 +1,55 @@
+import axios from "axios";
 import { Dispatch } from "redux";
+import { LOGIN, LOGOUT, CHANGE_NAME, GET_DUCKS } from './actionTypes';
 
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
-const CHANGE_NAME = 'CHANGE_NAME';
-
-export const loginAction = () => {
-    return {
-        type: LOGIN,
-        payload: true
-    };
+// Define Action Types
+interface LoginAction {
+    type: typeof LOGIN;
+    payload: boolean;
 }
 
-export const logoutAction = () => {
-    return {
-        type: LOGOUT,
-        payload: false
-    };
+interface LogoutAction {
+    type: typeof LOGOUT;
+    payload: boolean;
 }
 
-export const changeNameAction = (userName: string) => {
-    return {
-        type: CHANGE_NAME,
-        payload: userName
-    };
+interface ChangeNameAction {
+    type: typeof CHANGE_NAME;
+    payload: string;
+}
+
+interface GetDucksAction {
+    type: typeof GET_DUCKS;
+    payload: string;
+}
+
+export type UserActionTypes = LoginAction | LogoutAction | ChangeNameAction | GetDucksAction;
+
+export const loginAction = (): LoginAction => ({
+    type: LOGIN,
+    payload: true,
+});
+
+export const logoutAction = (): LogoutAction => ({
+    type: LOGOUT,
+    payload: false,
+});
+
+export const changeNameAction = (userName: string): ChangeNameAction => ({
+    type: CHANGE_NAME,
+    payload: userName,
+});
+
+export const getDucks = () => {
+    return async (dispatch: Dispatch<UserActionTypes>) => {
+        try {
+            const { data } = await axios.get('https://random-d.uk/api/v2/random');
+            dispatch({
+                type: GET_DUCKS,
+                payload: data.url,
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }
