@@ -1,16 +1,18 @@
 import { View, Text, StyleSheet, Button } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/store';
-import { loginAction } from '../store/userActions';
+import { AppDispatch, RootState } from '../store/store';
+import { login } from '../store/userReducer';
 
 const HomeScreen = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>()
   const isLoggedIn = useSelector((state: RootState) => state.data.isLoggedIn);
 
-  const handleLogin = () => {
-    dispatch(loginAction());
+  const duck = useSelector((state: RootState) => state.data.ducks )
+
+  const handleLoginClick = () => {
     console.log('Logged In..!');
+    dispatch(login());
   };
 
   return (
@@ -20,7 +22,7 @@ const HomeScreen = () => {
       ) : (
         <View>
           <Text style={[styles.text, { color: 'red' }]}>You are not Logged In</Text>
-          <Button title='Log in' onPress={handleLogin} />
+          <Button title='Log in' onPress={handleLoginClick} />
         </View>
       )}
     </View>

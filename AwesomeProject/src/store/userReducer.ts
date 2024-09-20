@@ -1,31 +1,45 @@
-import { LOGIN, LOGOUT, CHANGE_NAME, GET_DUCKS } from './actionTypes';
-import { UserActionTypes } from './userActions';
+import { createSlice } from "@reduxjs/toolkit";
+import { getDucks } from "./userActions";
 
-export interface UserState { // Exporting the UserState type to use in the root reducer
-    isLoggedIn: boolean;
-    userName: string;
-    ducks: string;
+export interface UserState {
+    isLoggedIn: boolean,
+    loading: boolean,
+    ducks: any
 }
 
 const initialState: UserState = {
     isLoggedIn: false,
-    userName: '',
-    ducks: '',
-};
+    loading: false,
+    ducks: {}
+}
 
-const userReducer = (state = initialState, action: UserActionTypes): UserState => {
-    switch (action.type) {
-        case LOGIN:
-            return { ...state, isLoggedIn: action.payload };
-        case LOGOUT:
-            return { ...state, isLoggedIn: action.payload };
-        case CHANGE_NAME:
-            return { ...state, userName: action.payload };
-        case GET_DUCKS:
-            return { ...state, ducks: action.payload };
-        default:
-            return state;
+export const userSlice = createSlice({
+    name: 'user',
+    initialState,
+    reducers: {
+        login: (state) => {
+            state.isLoggedIn = true;
+        },
+        logout: (state) => {
+            state.isLoggedIn = false;
+        }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(getDucks.fulfilled, (state, action) => {
+                state.ducks = action.payload;
+                state.loading = false;
+            })
+            .addCase(getDucks.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getDucks.rejected, (state) => {
+                state.loading = false;
+                state.ducks = {};
+            });
     }
-};
+})
 
-export default userReducer;
+export const { login, logout } = userSlice.actions;
+
+export default userSlice.reducer;

@@ -2,14 +2,14 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { logoutAction } from '../store/userActions';
+import { logout } from '../store/userReducer';
 
 const SettingScreen = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.data.isLoggedIn);
 
   const handleLogout = () => {
-    dispatch(logoutAction())
+    dispatch(logout())
     console.log('Logged out..!');
     
   }
