@@ -8,8 +8,6 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.data.isLoggedIn);
 
-  console.log(isLoggedIn);
-
   const handleLogin = () => {
     dispatch(loginAction());
     console.log('Logged In..!');
