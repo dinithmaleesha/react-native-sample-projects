@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -55,7 +55,7 @@ function FoodScreen({navigation}) {
       .finally(() => setLoading(false));
   }
 
-  const {items} = useSelector((state: RootState) => state.cart)
+  const { items } = useSelector((state: RootState) => state.cart)
   const dispatch = useDispatch()
 
   return (
@@ -67,7 +67,7 @@ function FoodScreen({navigation}) {
       /> */}
       <UserImage image={require('../assets/avatar.jpeg')} />
       <MyText
-        style={{marginTop: 57, marginBottom: 7, marginLeft: 21, fontSize: 19}}>
+        style={{ marginTop: 57, marginBottom: 7, marginLeft: 21, fontSize: 19 }}>
         Choose the
       </MyText>
       <MyText boldy style={styles.text}>
@@ -75,7 +75,7 @@ function FoodScreen({navigation}) {
       </MyText>
       <Search />
       <MyText style={styles.text}>Catogries</MyText>
-      <View style={{height: 100}}>
+      <View style={{ height: 100 }}>
         <ScrollView showsHorizontalScrollIndicator={false} horizontal>
           <Catogry title="Pizza" icon={require('../assets/food/piza.png')} />
           <Catogry
@@ -95,12 +95,12 @@ function FoodScreen({navigation}) {
         horizontal
         data={data}
         keyExtractor={(item, index) => 'key' + index}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <FoodCard
             title={item.title}
             price={item.price}
             image={item.image}
-            onPress={() => {dispatch(addItem(item))}}
+            onPress={() => { dispatch(addItem(item)) }}
           />
         )}
       />
@@ -108,7 +108,7 @@ function FoodScreen({navigation}) {
         animating={loading}
         size="large"
         color="red"
-        style={{position: 'absolute', top: '67%', left: '50%'}}
+        style={{ position: 'absolute', top: '67%', left: '50%' }}
       />
       <TouchableOpacity
         style={{
@@ -120,20 +120,20 @@ function FoodScreen({navigation}) {
           bottom: 29,
           right: 23,
           borderRadius: 20.5,
-          flexDirection:"row",
+          flexDirection: "row",
           width: 100,
         }}
         onPress={() => {
           navigation.navigate('NewOrder');
         }}>
-          <MyText boldy style={{color:"white",  fontSize: 20, width: 50, textAlign:"center"}}>
+        <MyText boldy style={{ color: "white", fontSize: 20, width: 50, textAlign: "center" }}>
           {/* {getTotalQuantity(cart)} */}
           {items?.length}
-          </MyText>
+        </MyText>
         <Image
-        tintColor={"white"}
+          tintColor={"white"}
           source={require('../assets/icons/cart.png')}
-          style={{height: 30, width: 30}}
+          style={{ height: 30, width: 30 }}
         />
       </TouchableOpacity>
     </MyView>
