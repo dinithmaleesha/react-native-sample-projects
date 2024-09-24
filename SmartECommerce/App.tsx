@@ -3,6 +3,7 @@ import React from 'react'
 import { s, vs, ms, mvs } from 'react-native-size-matters';
 import { Fonts } from './src/styles/fonts';
 import { useForm, Controller } from 'react-hook-form'
+import FormInputController from './src/components/controllers/FormInputController';
 
 const App = () => {
   const {
@@ -21,35 +22,28 @@ const App = () => {
     <View style={styles.main}>
       <Text style={styles.customText}>React Hook Form Example in React Native</Text>
 
-      <Controller
-        name="username"
+      <FormInputController
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Enter Your Name"
-            style={styles.input}
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        rules={{required: true, minLength: 5}}
+        name={"username"}
+        placeholder={"User Name"}
       />
-      {errors.username && <Text style={styles.error}>Name is required</Text>}
 
-      <Controller
-        name="email"
+      <FormInputController
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Enter Your Email"
-            style={styles.input}
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
+        name={"email"}
+        placeholder={"Email"}
       />
+
+      <FormInputController
+        control={control}
+        name={"password"}
+        placeholder={"Password"}
+        props={{
+          secureTextEntry: true
+        }}
+      />
+
+
       <Button title='Submit' onPress={handleSubmit(submit)} />
     </View>
   );
@@ -67,15 +61,4 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: Fonts.NunitoLight
   },
-  input: {
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    width: "90%",
-    marginTop: 18,
-    borderColor: 'gray'
-  },
-  error: {
-    color: 'red'
-  }
 });
