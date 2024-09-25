@@ -31,6 +31,7 @@ const SigninScreen = () => {
         style={{
           marginTop: rv(10)
         }}
+        
         onPress={function (): {} {
           throw new Error('Function not implemented.')
         }} />
