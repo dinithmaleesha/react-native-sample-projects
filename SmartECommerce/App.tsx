@@ -6,52 +6,20 @@ import { useForm, Controller } from 'react-hook-form'
 import FormInputController from './src/components/controllers/FormInputController';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema } from './src/constants/schemas/authSchema';
+import { rs } from './src/styles/responsive';
+import UserIconColored from './src/assets/SVG/user-icon';
+import BookLogo from './src/assets/SVG/book-logo';
 
 const App = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: {
-      errors
-    }
-  } = useForm({
-    resolver: yupResolver(formSchema)
-  })
-
-  const submit = (data) => {
-    console.log(data);
-    Alert.alert(JSON.stringify(data))
-  }
   return (
     <View style={styles.main}>
-      <Text style={styles.customText}>React Hook Form Example in React Native</Text>
-
-      <FormInputController
-        control={control}
-        name={"username"}
-        placeholder={"User Name"}
-        errors={errors}
+      <Text style={styles.customText}>React Native SVG</Text>
+      <UserIconColored
+        width={200}
+        height={200}
       />
 
-      <FormInputController
-        control={control}
-        name={"email"}
-        placeholder={"Email"}
-        errors={errors}
-      />
-
-      <FormInputController
-        control={control}
-        name={"password"}
-        placeholder={"Password"}
-        props={{
-          secureTextEntry: true
-        }}
-        errors={errors}
-      />
-
-
-      <Button title='Submit' onPress={handleSubmit(submit)} />
+      <BookLogo />
     </View>
   );
 };
@@ -66,6 +34,7 @@ const styles = StyleSheet.create({
   },
   customText: {
     color: 'black',
-    fontFamily: Fonts.NunitoLight
+    fontFamily: Fonts.NunitoLight,
+    fontSize: rs(30)
   },
 });
