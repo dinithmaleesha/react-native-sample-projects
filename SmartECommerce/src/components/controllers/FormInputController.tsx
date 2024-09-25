@@ -12,20 +12,23 @@ interface FormInputControllerProps {
 
 const FormInputController: FC<FormInputControllerProps> = ({ control, errors, name, placeholder, props }) => {
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { onChange, onBlur, value } }) => (
-        <TextInput
-          placeholder={placeholder}
-          style={styles.input}
-          value={value}
-          onBlur={onBlur}
-          onChangeText={onChange}
-          {...props}
-        />
-      )}
-    />
+    <>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            placeholder={placeholder}
+            style={styles.input}
+            value={value}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            {...props}
+          />
+        )}
+      />
+      {errors && errors[name] && <Text style={styles.error}>{errors[name]?.message}</Text>}
+    </>
   )
 }
 

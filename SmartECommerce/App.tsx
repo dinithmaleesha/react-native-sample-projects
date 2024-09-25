@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native'
 import React from 'react'
 import { s, vs, ms, mvs } from 'react-native-size-matters';
 import { Fonts } from './src/styles/fonts';
 import { useForm, Controller } from 'react-hook-form'
 import FormInputController from './src/components/controllers/FormInputController';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { formSchema } from './src/constants/schemas/authSchema';
 
 const App = () => {
   const {
@@ -12,11 +14,13 @@ const App = () => {
     formState: {
       errors
     }
-  } = useForm()
+  } = useForm({
+    resolver: yupResolver(formSchema)
+  })
 
   const submit = (data) => {
     console.log(data);
-
+    Alert.alert(JSON.stringify(data))
   }
   return (
     <View style={styles.main}>
@@ -26,12 +30,14 @@ const App = () => {
         control={control}
         name={"username"}
         placeholder={"User Name"}
+        errors={errors}
       />
 
       <FormInputController
         control={control}
         name={"email"}
         placeholder={"Email"}
+        errors={errors}
       />
 
       <FormInputController
@@ -41,6 +47,7 @@ const App = () => {
         props={{
           secureTextEntry: true
         }}
+        errors={errors}
       />
 
 
